@@ -60,15 +60,16 @@ void Ball::move(const float& delta, const int& screenWidth, const int& screenHei
 		float distance = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 		float theta = -atan2(deltaY, deltaX);
 
-		// If the distance between the centers of the circles is less than the sum of their radii, they have collided. Move back.
+		// If the balls have collided, move back.
 		if (distance < totalRadius)
 		{
+			float timeSinceCollision = (distance / totalRadius) * delta;
 			this->velocity.angle = theta;
-			this->collider.x += this->velocity.speed * delta/1000 * cos(this->velocity.angle);
-			this->collider.y -= this->velocity.speed * delta/1000 * sin(this->velocity.angle);
+			this->collider.x += this->velocity.speed * timeSinceCollision/1000 * cos(this->velocity.angle);
+			this->collider.y -= this->velocity.speed * timeSinceCollision/1000 * sin(this->velocity.angle);
 			balls[i]->velocity.angle = theta - M_PI;
-			balls[i]->collider.x += balls[i]->velocity.speed * delta/1000 * cos(balls[i]->velocity.angle);
-			balls[i]->collider.y -= balls[i]->velocity.speed * delta/1000 * sin(balls[i]->velocity.angle);
+			balls[i]->collider.x += balls[i]->velocity.speed * timeSinceCollision/1000 * cos(balls[i]->velocity.angle);
+			balls[i]->collider.y -= balls[i]->velocity.speed * timeSinceCollision/1000 * sin(balls[i]->velocity.angle);
 		}
 	}
 }
