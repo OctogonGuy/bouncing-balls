@@ -77,28 +77,33 @@ void Ball::move(const float& delta, const int& screenWidth, const int& screenHei
 
 void Ball::render(SDL_Renderer* renderer)
 {
-	// Get bounds of circle
-	int cX = round(collider.x);
-	int sX = round(collider.x - collider.radius);
-	int eX = round(collider.x + collider.radius);
-	int cY = round(collider.y);
-	int sY = round(collider.y - collider.radius);
-	int eY = round(collider.y + collider.radius);
-	int r = collider.radius;
-
 	// Set color
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 1);
 
-	// Render the appropriate pixels of the circle
-	for (int x = sX; x < eX; x++)
+	// Draw circle according to Bresenham's circle drawing algorithm
+	int cX = round(collider.x);
+	int cY = round(collider.y);
+	int r = collider.radius;
+	int x = 0;
+	int y = r;
+	int dX = 2;
+	int dY = -2 * r;
+	int d = dX + dY + 1;
+	while (x <= y)
 	{
-		for (int y = sY; y < eY; y++)
+		SDL_RenderDrawLine(renderer, cX + x, cY - y, cX - x, cY - y);
+		SDL_RenderDrawLine(renderer, cX + x, cY + y, cX - x, cY + y);
+		SDL_RenderDrawLine(renderer, cX + y, cY - x, cX - y, cY - x);
+		SDL_RenderDrawLine(renderer, cX + y, cY + x, cX - y, cY + x);
+		if (d > 0)
 		{
-			if (pow(x - cX, 2) + pow(y - cY, 2) <= pow(r, 2))
-			{
-				SDL_RenderDrawPoint(renderer, x, y);
-			}
+			y--;
+			dY += 2;
+			d += dY;
 		}
+		x++;
+		dX += 2;
+		d += dX + 1;
 	}
 }
 
