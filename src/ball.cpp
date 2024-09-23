@@ -58,11 +58,11 @@ void Ball::move(const float& delta, const int& screenWidth, const int& screenHei
 		float deltaY = this->collider.y - balls[i]->collider.y;
 		float totalRadius = this->collider.radius + balls[i]->collider.radius;
 		float distance = sqrt(pow(deltaX, 2) + pow(deltaY, 2));
-		float theta = -atan2(deltaY, deltaX);
 
 		// If the balls have collided, move back.
 		if (distance < totalRadius)
 		{
+			float theta = -atan2(deltaY, deltaX);
 			float timeSinceCollision = (distance / totalRadius) * delta;
 			this->velocity.angle = theta;
 			this->collider.x += this->velocity.speed * timeSinceCollision/1000 * cos(this->velocity.angle);
