@@ -1,12 +1,11 @@
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 400
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 #define BACKGROUND_COLOR 0xFFFFFF
-#define NUM_BALLS 5
-#define RADIUS_LOWER 5
-#define RADIUS_UPPER 50
-#define SPEED_LOWER 25.0
-#define SPEED_UPPER 250.0
-
+#define NUM_BALLS 12
+#define RADIUS_LOWER 15
+#define RADIUS_UPPER 60
+#define SPEED_LOWER 30.0
+#define SPEED_UPPER 300.0
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <SDL2/SDL.h>
